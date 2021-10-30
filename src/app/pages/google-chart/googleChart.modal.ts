@@ -16,16 +16,17 @@ export interface ChartOptions{
   height?:number;
   bar?:{groupWidth:string;};
   legend?:{position:string,maxLines?:number};
-  axes?:{};
   isStacked?:boolean|string;
-  chartArea?:any;
+  pieHole?:number;
 }
 
 export enum ChartTypes{
     Bar = "barChart-div",
     StackBar = "stackbarChart-div",
     Pie = "pieChart-div",
-    Column = "columnChart-div"
+    Donut = "donutChart-div",
+    Column = "columnChart-div",
+    StackColumn = "stackColumnChart-div",
 }
 // bar chart style
 // color

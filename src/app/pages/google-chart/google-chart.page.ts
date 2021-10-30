@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { ChartOptionDefault, BarChartData, ColumnBarChartData, StackBarChartData } from './defaultData';
+import { ChartOptionDefault, BarChartData, ColumnBarChartData, StackBarChartData, StackColumnChartData, PieChartOptions, PieChartData, DonutPieChartOptions, DonutPieChartData } from './defaultData';
 import { ChartDataObj, ChartOptions, ChartTypes } from './googleChart.modal';
 declare var google;
 @Component({
@@ -10,24 +10,34 @@ declare var google;
 })
 export class GoogleChartPage implements OnInit {
   // colors array
-  colorsArray:string[] = ["red","orange","green","skyblue","black","navy","yellow","brown","grey"];
+  colorsArray:string[] = ["red","orange","green","skyblue","violate","navy","yellow","brown","grey"];
   // style options
   chartOptions:ChartOptions = ChartOptionDefault; 
-
+  pieChartOptions:ChartOptions = PieChartOptions;
+  donutPieChartOptions:ChartOptions = DonutPieChartOptions;
   // custom data
   dynamicColumnData:ChartDataObj = BarChartData;
   barChartData:ChartDataObj = BarChartData;
   columnChartData:ChartDataObj = ColumnBarChartData;
   stackChartData:ChartDataObj = StackBarChartData;
+  stackColumnData:ChartDataObj = StackColumnChartData;
+  pieChartData:ChartDataObj = PieChartData;
+  donutPieChartData:ChartDataObj = DonutPieChartData;
   constructor(private platform:Platform) { }
 
   ngOnInit() {
-    // bar chart
+   // pie chart
+   this.drawChart(this.pieChartData); 
+   // donut chart
+   this.drawChart(this.donutPieChartData); 
+   // bar chart
     this.drawChart(this.barChartData);
    // colum bar chart
-   this.drawChart(this.columnChartData);
-   // stack column chart
+    this.drawChart(this.columnChartData);
+   // stack bar chart
    this.drawChart(this.stackChartData);
+   // stack column chart
+   this.drawChart(this.stackColumnData);
   }
 
 
@@ -71,7 +81,7 @@ export class GoogleChartPage implements OnInit {
    }
    
    // multiple value columns add
-   multipleValueColumnAdd(data,dataValueColumnsName:any[]):any[]{
+   multipleValueColumnAdd(data,dataValueColumnsName:any[],annotaion:boolean = true):any[]{
     if(dataValueColumnsName.length == 1){
      return [data[dataValueColumnsName[0]]];
     }else{
@@ -94,20 +104,20 @@ export class GoogleChartPage implements OnInit {
    chartDrawWithData(data:ChartDataObj){
      // create table
     let dataTable = new google.visualization.arrayToDataTable(this.dynamicColumnAdd(data));
-    let options = this.chartOptions;
+    let options = data.chartTypeWill == ChartTypes.Pie?this.pieChartOptions:data.chartTypeWill == ChartTypes.Donut?this.donutPieChartOptions:this.chartOptions;
     options.title = data.title?data.title:''; 
     options.width = this.platform.width();
-    options.isStacked = data.dataValueColumnsName.length > 1 && (data.chartTypeWill == ChartTypes.Bar ||data.chartTypeWill == ChartTypes.Column)?"percent":false
+    options.isStacked = data.dataValueColumnsName.length > 1 && (data.chartTypeWill == ChartTypes.Bar ||data.chartTypeWill == ChartTypes.Column)?true:false
     // options choose & drw
-      if(data.chartTypeWill == ChartTypes.Bar){
+      if(data.chartTypeWill == ChartTypes.Bar || data.chartTypeWill == ChartTypes.StackBar){
         var chart = new google.visualization.BarChart(document.getElementById(data.chartTypeWill));
         chart.draw(dataTable, options);
       }
-      else if(data.chartTypeWill == ChartTypes.Pie){
+      else if(data.chartTypeWill == ChartTypes.Pie || data.chartTypeWill == ChartTypes.Donut){
         var chart = new google.visualization.PieChart(document.getElementById(data.chartTypeWill));
         chart.draw(dataTable, options);
       }
-      else if(data.chartTypeWill == ChartTypes.Column){
+      else if(data.chartTypeWill == ChartTypes.Column || data.chartTypeWill == ChartTypes.StackColumn){
         var chart = new google.visualization.ColumnChart(document.getElementById(data.chartTypeWill));
         chart.draw(dataTable, options);
       }
