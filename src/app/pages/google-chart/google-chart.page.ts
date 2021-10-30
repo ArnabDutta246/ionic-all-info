@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PieChartData } from './defaultData';
-import { ChartColumn } from './googleChart.modal';
+import { Platform } from '@ionic/angular';
+import { ChartOptionDefault, BarChartData, ColumnBarChartData, StackBarChartData } from './defaultData';
+import { ChartDataObj, ChartOptions, ChartTypes } from './googleChart.modal';
 declare var google;
 @Component({
   selector: 'app-google-chart',
@@ -9,12 +10,24 @@ declare var google;
 })
 export class GoogleChartPage implements OnInit {
   // colors array
-  colorsArray:string[] = ["red","orange","green","skyblue","violate","navy","yellow","brown","grey"];
-  dynamicColumnData:ChartColumn = PieChartData;
-  constructor() { }
+  colorsArray:string[] = ["red","orange","green","skyblue","black","navy","yellow","brown","grey"];
+  // style options
+  chartOptions:ChartOptions = ChartOptionDefault; 
+
+  // custom data
+  dynamicColumnData:ChartDataObj = BarChartData;
+  barChartData:ChartDataObj = BarChartData;
+  columnChartData:ChartDataObj = ColumnBarChartData;
+  stackChartData:ChartDataObj = StackBarChartData;
+  constructor(private platform:Platform) { }
 
   ngOnInit() {
-    this.initChart(this.drawChart.bind(this));
+    // bar chart
+    this.drawChart(this.barChartData);
+   // colum bar chart
+   this.drawChart(this.columnChartData);
+   // stack column chart
+   this.drawChart(this.stackChartData);
   }
 
 
@@ -23,32 +36,85 @@ export class GoogleChartPage implements OnInit {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(callBackFun);
    }
+   // dynamicColumAdd
+   dynamicColumnAdd(data:ChartDataObj){
+     let dataCartArry = [];
+     const { dataBaseColumnName,dataValueColumnsName,annotation,style,dataArray } = data;
+     if(dataValueColumnsName && dataValueColumnsName.length > 0){
+       dataCartArry.push([dataBaseColumnName,...dataValueColumnsName]);
 
-   dynamicColumnAdd(data:ChartColumn){}
+      // data arrangement
+      let roles = [];
+      if(style){
+       dataCartArry[0].push({role:"style"});
+      }
+      if(annotation){
+        dataCartArry[0].push({role:"annotation"});
+      }
+      dataArray.forEach(data=>{
+        if(style){
+          roles.push(this.colorShemaAdd());
+         }
+         if(annotation){
+          roles.push("");
+         }
+         roles.length > 0?
+         dataCartArry.push([data[dataBaseColumnName],...this.multipleValueColumnAdd(data,dataValueColumnsName),...roles]):
+        dataCartArry.push([data[dataBaseColumnName],...this.multipleValueColumnAdd(data,dataValueColumnsName)]);
 
-   drawChart(){
-    // create table
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Topping');
-    data.addColumn('number', 'Slices');
-    // insert data
-    data.addRows([
-      ['Mushrooms', 3],
-      ['Onions', 1],
-      ['Olives', 1],
-      ['Zucchini', 1],,
-      ['Pepperoni', 2]
-    ]);
-    // set options
-    var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
-    // draw in specific div id
-    var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
-        chart.draw(data, options)
+        roles = [];
+      })
+     }
+
+     console.log("finally 2D data array will",dataCartArry);
+     return dataCartArry;
    }
-  // column chart
-  // donut chart
-  // bar chart 
-  // combo chart
+   
+   // multiple value columns add
+   multipleValueColumnAdd(data,dataValueColumnsName:any[]):any[]{
+    if(dataValueColumnsName.length == 1){
+     return [data[dataValueColumnsName[0]]];
+    }else{
+      return dataValueColumnsName.map(column=>data[column]);
+    }
+   }
+   // color indexing
+   colorIndex = 0;
+   colorShemaAdd():string{
+      if(this.colorIndex == this.colorsArray.length - 1){
+        this.colorIndex = 0;
+      }
+      let color = this.colorsArray[this.colorIndex];
+      this.colorIndex ++;
+      return color;
+   }
+
+
+   // chart drawing 
+   chartDrawWithData(data:ChartDataObj){
+     // create table
+    let dataTable = new google.visualization.arrayToDataTable(this.dynamicColumnAdd(data));
+    let options = this.chartOptions;
+    options.title = data.title?data.title:''; 
+    options.width = this.platform.width();
+    options.isStacked = data.dataValueColumnsName.length > 1 && (data.chartTypeWill == ChartTypes.Bar ||data.chartTypeWill == ChartTypes.Column)?"percent":false
+    // options choose & drw
+      if(data.chartTypeWill == ChartTypes.Bar){
+        var chart = new google.visualization.BarChart(document.getElementById(data.chartTypeWill));
+        chart.draw(dataTable, options);
+      }
+      else if(data.chartTypeWill == ChartTypes.Pie){
+        var chart = new google.visualization.PieChart(document.getElementById(data.chartTypeWill));
+        chart.draw(dataTable, options);
+      }
+      else if(data.chartTypeWill == ChartTypes.Column){
+        var chart = new google.visualization.ColumnChart(document.getElementById(data.chartTypeWill));
+        chart.draw(dataTable, options);
+      }
+   }
+
+
+   drawChart(data){
+    this.initChart(this.chartDrawWithData.bind(this,data));
+   }
 }
