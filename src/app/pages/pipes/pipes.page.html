@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button><ion-icon name="arrow-back" slot="icon-only"></ion-icon></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pipes Practice</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- price unit -->
+  <ion-card>
+    <ion-card-header>Price Unit</ion-card-header>
+    <ion-card-content>
+      <ng-container *ngFor="let price of priceList">
+        <ion-item lines="full">
+          <ion-text slot="start">{{price}}</ion-text>
+          <ion-text slot="end">{{price|priceUnit}}</ion-text>
+          </ion-item>
+      </ng-container>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>
