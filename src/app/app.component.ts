@@ -17,7 +17,7 @@ export class AppComponent {
     { title: 'location', url: '/location', icon: 'heart' },
     { title: 'Pipes', url: '/pipes', icon: 'archive' },
     { title: 'Google-chart', url: '/googlechart', icon: 'archive' },
-    // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+     { title: 'QRScanner', url: '/qr-scanner', icon: 'warning' },
   ];
    // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(

@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'googlechart',
     loadChildren: () => import('./pages/google-chart/google-chart.module').then( m => m.GoogleChartPageModule)
+  },
+  {
+    path: 'qr-scanner',
+    loadChildren: () => import('./pages/qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
   }
 ];
 
