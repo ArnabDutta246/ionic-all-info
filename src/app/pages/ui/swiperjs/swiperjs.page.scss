@@ -2,8 +2,9 @@ $colors: red, green, blue;
 
 @for $i from 1 through 3 {
     .slide#{$i} {
-        height:300px;
-        width:100%;
+        // height:300px;
+        // width:100%;
+        padding:30px;
       background-color: nth($colors,$i);
     }
   }
