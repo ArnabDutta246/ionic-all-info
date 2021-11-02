@@ -20,6 +20,7 @@ export class AppComponent {
      { title: 'QRScanner', url: '/qr-scanner', icon: 'warning' },
      { title: 'UI One', url: '/ui-one', icon: 'warning' },
      { title: 'Swiper', url: '/swiperjs', icon: 'warning' },
+     { title: 'Rxjs', url: '/rxjs', icon: 'warning' },
   ];
    // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(
@@ -31,40 +32,8 @@ export class AppComponent {
 
     // hardware back button controll
     this.hardwareBackButtonControl()
-    this.pipeExampleOne();
+    //this.pipeExampleOne();
   }
-  // pipe operator
-  // this operator use to chain multiple operator
-  pipeExampleOne(){
-    of(1,2,3,4,5,6).pipe(
-      filter(a=>a%2==0),
-      map(a=>a*10)
-    ).subscribe(res=>{
-      console.log("pipeExampleOne",res);
-    })
-  }
-  // tap operator
-  // switchMap
-  // map
-  // take
-  // margeMap 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // hardware back button
   hardwareBackButtonControl(){

@@ -1,9 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>rxjs</ion-title>
+    <ion-title>Rxjs</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-list>
+    <ion-list-header>
+      Order Durums with your customize Foods
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label slot="start" class="ion-text-wrap">Meat</ion-label>
+      <ion-buttons slot="end">
+        <ion-button slot="icon-only" (click)="_meat.next('meat')">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start" class="ion-text-wrap">Bread</ion-label>
+      <ion-buttons slot="end" >
+        <ion-button slot="icon-only" (click)="_bread.next('bread')">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="start" class="ion-text-wrap">Cabbage</ion-label>
+      <ion-buttons slot="end" >
+        <ion-button slot="icon-only" (click)="_cabbage.next('cabbage')">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item>
+      <ion-button expand="full" color="primary" (click)="dispacthOrder()"> Dispatch Order </ion-button>
+    </ion-item>
+  </ion-list>
+
+
+  <ng-container *ngIf="durum$| async as durum">
+    <ion-card>
+      <ion-card-header>
+        Enjoy Tour Order
+      </ion-card-header>
+      <ion-card-content>
+        <pre>{{ durum | json }}</pre>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 </ion-content>
