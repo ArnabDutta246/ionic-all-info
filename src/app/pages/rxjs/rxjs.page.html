@@ -39,19 +39,17 @@
       </ion-buttons>
     </ion-item>
 
-    <ion-item>
       <ion-button expand="full" color="primary" (click)="dispacthOrder()"> Dispatch Order </ion-button>
-    </ion-item>
   </ion-list>
 
 
-  <ng-container *ngIf="durum$| async as durum">
-    <ion-card>
+  <ng-container *ngIf="delivery$ | async as product">
+    <ion-card *ngIf="product?.product">    
       <ion-card-header>
-        Enjoy Tour Order
+        Enjoy Your Order
       </ion-card-header>
       <ion-card-content>
-        <pre>{{ durum | json }}</pre>
+        <pre>{{ product | json }}</pre>
       </ion-card-content>
     </ion-card>
   </ng-container>

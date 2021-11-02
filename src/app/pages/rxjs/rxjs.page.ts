@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, concat, interval, merge, observable, Observable, of, Subject, throwError, zip } from 'rxjs';
-import { catchError, concatMap, filter, map, mergeMap, shareReplay, take, tap } from 'rxjs/operators';
+import { catchError, concatMap, filter, map, mergeMap, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
 interface Order {
   amount:number;
@@ -45,6 +45,17 @@ export class RxjsPage implements OnInit {
       tap((result)=>{console.log(result)})
     );
    // 
+
+   // after click the dispacth is start watching
+   // then when we complete the customise the order 
+   // this will return the final products 
+   // it wait for the second one
+   // =====================================================
+   // But in switchMap
+   // of the once done subscribe it will death
+   // before subscribe if any order placed before
+   // it cancel the 1st one and then it start execute the
+   // 2nd one
    this.delivery$ = this._orders.pipe(
      tap((order)=>console.log(order)),
      mergeMap(
@@ -62,7 +73,7 @@ export class RxjsPage implements OnInit {
   dispacthOrder(){
     const amount = Math.floor(Math.random()*2)+1;
     ++customerId;
-    this._orders.next({amount,customerId});
+    this._orders.next({amount,customerId}); 
   }
 
 
