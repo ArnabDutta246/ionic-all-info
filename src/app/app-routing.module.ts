@@ -34,6 +34,18 @@ const routes: Routes = [
   {
     path: 'qr-scanner',
     loadChildren: () => import('./pages/qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
+  },
+  {
+    path: 'api-caching',
+    loadChildren: () => import('./pages/api-caching/api-caching.module').then( m => m.ApiCachingPageModule)
+  },
+  {
+    path: 'rxjs',
+    loadChildren: () => import('./pages/rxjs/rxjs.module').then( m => m.RxjsPageModule)
+  },
+  {
+    path: 'ui-one',
+    loadChildren: () => import('./pages/ui/ui-one/ui-one.module').then( m => m.UiOnePageModule)
   }
 ];
 

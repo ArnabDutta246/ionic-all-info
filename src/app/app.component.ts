@@ -18,6 +18,7 @@ export class AppComponent {
     { title: 'Pipes', url: '/pipes', icon: 'archive' },
     { title: 'Google-chart', url: '/googlechart', icon: 'archive' },
      { title: 'QRScanner', url: '/qr-scanner', icon: 'warning' },
+     { title: 'UI One', url: '/ui-one', icon: 'warning' },
   ];
    // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(
