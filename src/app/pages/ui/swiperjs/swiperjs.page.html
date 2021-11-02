@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>swiperjs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollY]="false">
+ <swiper [config]="swiperConfig">
+   <ng-template swiperSlide>
+     <div class="slide1">
+       <h1>Slide 1</h1>
+       <p>This slide contains the red color</p>
+     </div>
+   </ng-template>
+   <ng-template swiperSlide>
+    <div class="slide2">
+      <h1>Slide 2</h1>
+      <p>This slide contains the yellow color</p>
+    </div>
+  </ng-template>
+  <ng-template swiperSlide>
+    <div class="slide3">
+      <h1>Slide 3</h1>
+      <p>This slide contains the green color</p>
+    </div>
+  </ng-template>
+ </swiper>
+</ion-content>
+
+<ion-footer>
+  <ion-button 
+  expand="full"
+  color="success"
+  routerLink="/ui-one"
+  routerDirection="forward"
+  >
+    Start Using Quicklisting
+  </ion-button>
+</ion-footer>
+    

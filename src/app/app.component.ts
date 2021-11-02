@@ -19,6 +19,7 @@ export class AppComponent {
     { title: 'Google-chart', url: '/googlechart', icon: 'archive' },
      { title: 'QRScanner', url: '/qr-scanner', icon: 'warning' },
      { title: 'UI One', url: '/ui-one', icon: 'warning' },
+     { title: 'Swiper', url: '/swiperjs', icon: 'warning' },
   ];
    // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(

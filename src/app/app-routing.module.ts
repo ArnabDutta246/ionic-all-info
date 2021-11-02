@@ -46,6 +46,10 @@ const routes: Routes = [
   {
     path: 'ui-one',
     loadChildren: () => import('./pages/ui/ui-one/ui-one.module').then( m => m.UiOnePageModule)
+  },
+  {
+    path: 'swiperjs',
+    loadChildren: () => import('./pages/ui/swiperjs/swiperjs.module').then( m => m.SwiperjsPageModule)
   }
 ];
 
