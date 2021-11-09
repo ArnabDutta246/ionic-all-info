@@ -31,7 +31,7 @@ export class AppComponent {
   ) {
 
     // hardware back button controll
-    this.hardwareBackButtonControl()
+     
     //this.pipeExampleOne();
   }
 

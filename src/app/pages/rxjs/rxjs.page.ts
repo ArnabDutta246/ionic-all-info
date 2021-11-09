@@ -35,6 +35,7 @@ export class RxjsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
 
     // Zip  work when all observables are init and get value
     this.durum$ = zip(
