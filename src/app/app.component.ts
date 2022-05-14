@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { of } from 'rxjs';
-import { map, filter, tap } from 'rxjs/operators'
+import { PluginListenerHandle } from '@capacitor/core';
+import { Network } from '@capacitor/network';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   counter:number = 0;
+  networkStatus: any;
+  networkListener: PluginListenerHandle;
+
   public appPages = [
     { title: 'renderer', url: '/renderer', icon: 'mail' },
     { title: 'element-ref', url: '/element-ref', icon: 'paper-plane' },
@@ -21,8 +24,9 @@ export class AppComponent {
      { title: 'UI One', url: '/ui-one', icon: 'warning' },
      { title: 'Swiper', url: '/swiperjs', icon: 'warning' },
      { title: 'Rxjs', url: '/rxjs', icon: 'warning' },
+     { title: 'filesystem', url: '/filesystem', icon: 'archive' },
   ];
-   // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+   // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Trave   l', 'Reminders'];
   constructor(
     private alertController:AlertController,
     private platform:Platform,
@@ -30,10 +34,36 @@ export class AppComponent {
     private location:Location,
   ) {
 
-    // hardware back button controll
-     
-    //this.pipeExampleOne();
+     // hardware back button controll
+    //ths.pipeExamplieOne();
   }
+
+  // onInit
+  ngOnInit(){
+    this.networkListener = Network.addListener('networkStatusChange', (status) => {
+      this.networkStatus = status;
+      console.log('Network status changed', status);
+    });
+   // network status
+   this.getNetWorkStatus();
+  }
+  async getNetWorkStatus() {
+    this.networkStatus = await Network.getStatus();
+    console.log(this.networkStatus);
+  }
+
+  endNetworkListener() {
+    if (this.networkListener) {
+      this.networkListener.remove();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.networkListener) {
+      this.networkListener.remove();
+    }
+  }
+
 
   // hardware back button
   hardwareBackButtonControl(){
@@ -55,5 +85,5 @@ export class AppComponent {
   });
   }
 
-  
+  // 
 }

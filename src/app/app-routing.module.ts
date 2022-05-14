@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'swiperjs',
     loadChildren: () => import('./pages/ui/swiperjs/swiperjs.module').then( m => m.SwiperjsPageModule)
+  },
+  {
+    path: 'filesystem',
+    loadChildren: () => import('./pages/filesystem/filesystem.module').then( m => m.FilesystemPageModule)
   }
 ];
 
