@@ -9,51 +9,59 @@ const routes: Routes = [
   },
   {
     path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
   },
   {
     path: 'renderer',
-    loadChildren: () => import('./pages/renderer/renderer.module').then( m => m.RendererPageModule)
+    loadChildren: () => import('./pages/renderer/renderer.module').then(m => m.RendererPageModule)
   },
   {
     path: 'element-ref',
-    loadChildren: () => import('./pages/element-ref/element-ref.module').then( m => m.ElementRefPageModule)
+    loadChildren: () => import('./pages/element-ref/element-ref.module').then(m => m.ElementRefPageModule)
   },
   {
     path: 'location',
-    loadChildren: () => import('./pages/location/location.module').then( m => m.LocationPageModule)
+    loadChildren: () => import('./pages/location/location.module').then(m => m.LocationPageModule)
   },
   {
     path: 'pipes',
-    loadChildren: () => import('./pages/pipes/pipes.module').then( m => m.PipesPageModule)
+    loadChildren: () => import('./pages/pipes/pipes.module').then(m => m.PipesPageModule)
   },
   {
     path: 'googlechart',
-    loadChildren: () => import('./pages/google-chart/google-chart.module').then( m => m.GoogleChartPageModule)
+    loadChildren: () => import('./pages/google-chart/google-chart.module').then(m => m.GoogleChartPageModule)
   },
   {
     path: 'qr-scanner',
-    loadChildren: () => import('./pages/qr-scanner/qr-scanner.module').then( m => m.QrScannerPageModule)
+    loadChildren: () => import('./pages/qr-scanner/qr-scanner.module').then(m => m.QrScannerPageModule)
   },
   {
     path: 'api-caching',
-    loadChildren: () => import('./pages/api-caching/api-caching.module').then( m => m.ApiCachingPageModule)
+    loadChildren: () => import('./pages/api-caching/api-caching.module').then(m => m.ApiCachingPageModule)
   },
   {
     path: 'rxjs',
-    loadChildren: () => import('./pages/rxjs/rxjs.module').then( m => m.RxjsPageModule)
+    loadChildren: () => import('./pages/rxjs/rxjs.module').then(m => m.RxjsPageModule)
   },
   {
     path: 'ui-one',
-    loadChildren: () => import('./pages/ui/ui-one/ui-one.module').then( m => m.UiOnePageModule)
+    loadChildren: () => import('./pages/ui/ui-one/ui-one.module').then(m => m.UiOnePageModule)
   },
   {
     path: 'swiperjs',
-    loadChildren: () => import('./pages/ui/swiperjs/swiperjs.module').then( m => m.SwiperjsPageModule)
+    loadChildren: () => import('./pages/ui/swiperjs/swiperjs.module').then(m => m.SwiperjsPageModule)
   },
   {
     path: 'filesystem',
-    loadChildren: () => import('./pages/filesystem/filesystem.module').then( m => m.FilesystemPageModule)
+    loadChildren: () => import('./pages/filesystem/filesystem.module').then(m => m.FilesystemPageModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartPageModule)
+  },
+  {
+    path: 'cart-header',
+    loadChildren: () => import('./pages/cart/cart-header/cart-header.module').then(m => m.CartHeaderPageModule)
   }
 ];
 
@@ -63,4 +71,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
